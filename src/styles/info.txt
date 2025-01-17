@@ -1,0 +1,459 @@
+
+Route::get('/bien', function (Request $request) {
+    return [
+        'termes' => [
+            'values'=> [
+                'description' =>[
+                    'synonyme' =>'démographie, collectivité',
+                    'contraire' =>'dépopulation, émigration',
+                ],
+                'definitions' =>'La population désigne l’ensemble des individus d’une même espèce vivant dans une zone géographique donnée à un moment donné. En statistiques, elle fait référence au groupe de personnes sur lequel une étude est menée.',
+                'categorys' => 'Statistiques démographiques',
+                'variables' =>'Taille de la population, taux de natalité, taux de mortalité, migration nette',
+                'examples' => 'La population de la France était estimée à environ 67 millions d’habitants en 2023.',
+                'references' =>'Institut national de la statistique et des études économiques (INSEE), Organisation des Nations Unies (ONU)',
+                'themes' => 'Démographie, Sociologie, Économie',
+                'termes_associes' => [
+                    [
+                        'terme' => 'Accroissement naturel',
+                        'definition' => 'Différence entre le nombre de naissances et le nombre de décès sur une période donnée.',
+                    ],
+                    [
+                        'terme' => 'Densité de population',
+                        'definition' => 'Nombre d’habitants par unité de surface (habitants/km²).',
+                    ],
+                    [
+                        'terme' => 'Espérance de vie',
+                        'definition' => 'Durée moyenne de vie d’une population à un moment donné.',
+                    ],
+                    [
+                        'terme' => 'Recensement',
+                        'definition' => 'Dénombrement exhaustif des habitants d’un territoire à une date précise.',
+                    ],
+                    [
+                        'terme' => 'Taux de natalité',
+                        'definition' => 'Nombre de naissances vivantes pour 1 000 habitants sur une période donnée.',
+                    ],
+                    [
+                        'terme' => 'Taux de mortalité',
+                        'definition' => 'Nombre de décès pour 1 000 habitants sur une période donnée.',
+                    ],
+                    [
+                        'terme' => 'Solde migratoire',
+                        'definition' => 'Différence entre le nombre d’immigrants et d’émigrants sur une période donnée.',
+                    ],
+                    [
+                        'terme' => 'Pyramide des âges',
+                        'definition' => 'Graphique représentant la distribution par âge et sexe d’une population.',
+                    ],
+                    [
+                        'terme' => 'Transition démographique',
+                        'definition' => 'Processus par lequel une population passe d’un régime démographique traditionnel à un régime moderne.',
+                    ],
+                ],
+                // Sections supplémentaires ajoutées
+                // 1. Historique
+                'historique' => [
+                    "description" => "L'étude des populations remonte à l'antiquité, mais les méthodes statistiques modernes ont été développées au cours des derniers siècles. Les recensements réguliers sont devenus courants au XIXe siècle."
+                ],
+                // 2. Importance Statistique
+                'importance_statistique' => "Comprendre la population est essentiel pour la planification économique, la santé publique et le développement social.",
+
+                // 3. Applications Pratiques
+                'applications_pratiques' => "Les données sur la population sont utilisées pour la planification urbaine, les politiques publiques, les études de marché et bien plus encore.",
+
+                // 4. Outils et Méthodes Statistiques
+                'outils_methods_statistiques' => "Les méthodes telles que l'analyse de régression, les enquêtes par échantillonnage et les modèles démographiques sont couramment utilisées pour analyser les données sur la population.",
+
+                // 5. Glossaire
+                // Liste des termes techniques spécifiques au domaine
+                "glossaire" => [
+                    "Statistique descriptive" => "Méthodes utilisées pour résumer ou décrire les caractéristiques d'un ensemble de données.",
+                    "Inférence statistique" => "Processus permettant d'effectuer des généralisations ou des prédictions à partir d'un échantillon.",
+                    "Variance" => "Mesure de la dispersion des valeurs dans un ensemble de données.",
+                    "Écart_type" => "Mesure qui quantifie la dispersion ou l'étalement des valeurs par rapport à leur moyenne.",
+                ],
+
+                // 6. Études de Cas
+                // Exemples concrets où les concepts ont été appliqués
+                "etudes_de_cas" => [
+                    "Étude sur l'évolution démographique en France" => "Analyse des tendances démographiques depuis 1950, mettant en lumière l'accroissement naturel et l'évolution des taux de natalité.",
+                    "Impact des migrations sur les villes" => "Étude sur comment l'immigration a transformé certaines métropoles européennes au cours du XXIe siècle."
+                ],
+                // 7. Ressources Complémentaires
+                // Liens vers des livres, articles ou sites web utiles
+                "ressources_complementaires" => [
+                    "Livre : Démographie: Analyse et Perspectives" => "Un ouvrage complet qui traite des enjeux démographiques contemporains.",
+                    "Site : INSEE" => "Site officiel fournissant des statistiques détaillées sur la population française.",
+                    "Article : La transition démographique en Europe" => "Une analyse approfondie des changements démographiques en Europe au cours du dernier siècle."
+                ],
+
+            ]
+        ],
+    ];
+});
+
+
+Route::get('/bien/{mot}', function ($mot) {
+    // Appel à un service externe d'IA
+    $url = "https://api.perplexity.ai/"; // Remplacez par l'URL du service que vous utilisez
+    $apiKey = "YOUR_API_KEY"; // Remplacez par votre clé API
+
+    // Effectuer la requête à l'API d'IA
+    $client = new \GuzzleHttp\Client();
+    try {
+
+        $response = $client->request('GET', $url, [
+            'query' => ['q' => $mot],
+            'headers' => [
+                'Authorization' => "Bearer $apiKey",
+                'Accept' => 'application/json',
+            ],
+        ]);
+
+        $data = json_decode($response->getBody(), true);
+        // Traitez les données reçues et renvoyez-les
+        return response()->json($data);
+
+    }
+
+    catch (\Exception $e) {
+
+        return response()->json(['message' => 'Erreur lors de la recherche : ' . $e->getMessage()], 500);
+
+    }
+});
+
+
+
+Route::get('/loi', function (Request $request) {
+    return [
+        'termes' => [
+            'values'=> [
+                'description' => [
+                    'synonyme' => 'règle, principe',
+                    'contraire' => 'exception',
+                ],
+                'definitions' => 'En statistique, une loi est une relation mathématique qui décrit le comportement d’une variable aléatoire.',
+                'categorys' => 'Statistiques',
+                'variables' => 'Loi normale, loi binomiale, loi de Poisson',
+                'examples' => 'La loi normale est utilisée pour modéliser de nombreux phénomènes naturels.',
+                'references' => 'Keller, G. (2018). Statistics for Management and Economics.',
+                'themes' => 'Probabilités, Statistiques',
+                'termes_associes' => [
+                    [
+                        'terme' => 'Loi normale',
+                        'definition' => 'Distribution continue qui est symétrique autour de sa moyenne.',
+                    ],
+                    [
+                        'terme' => 'Loi binomiale',
+                        'definition' => 'Distribution discrète qui modélise le nombre de succès dans une série d’essais indépendants.',
+                    ],
+                    // Ajoutez d'autres termes associés si nécessaire
+                ],
+                // Sections supplémentaires
+                'historique' => [
+                    "description" => "Les lois statistiques ont été formalisées au cours du XIXe siècle avec le développement de la théorie des probabilités."
+                ],
+                // Importance Statistique
+                'importance_statistique' => "Les lois statistiques sont fondamentales pour la modélisation et l'analyse des données.",
+                // Applications Pratiques
+                'applications_pratiques' => "Utilisées dans divers domaines tels que l'économie, la biologie et l'ingénierie.",
+            ]
+        ],
+    ];
+});
+
+
+Route::get('/mode', function (Request $request) {
+    return [
+        'termes' => [
+            'values'=> [
+                'description' => [
+                    'synonyme' => 'valeur la plus fréquente',
+                    'contraire' => '',
+                ],
+                'definitions' => "Le mode est la valeur qui apparaît le plus fréquemment dans un ensemble de données.",
+                'categorys' => 'Statistiques descriptives',
+                'variables' => '',
+                'examples' => "Dans l'ensemble {1, 2, 2, 3}, le mode est 2.",
+                'references' => "Triola, M. F. (2018). Essentials of Statistics.",
+                'themes' => "Statistiques descriptives",
+                // Termes associés
+                'termes_associes' => [],
+                // Sections supplémentaires
+                // Historique
+                'historique' => [
+                    "description" => "Le concept de mode a été utilisé depuis longtemps dans les statistiques descriptives."
+                ],
+                // Importance Statistique
+                'importance_statistique' => "Le mode est utile pour comprendre les tendances dans les données catégorielles.",
+            ]
+        ],
+    ];
+});
+
+
+Route::get('/mediane', function (Request $request) {
+    return [
+        'termes' => [
+            'values'=> [
+                'description' => [
+                    'synonyme' => 'valeur centrale',
+                    'contraire' => '',
+                ],
+                'definitions' => "La médiane est la valeur qui sépare un ensemble de données en deux parties égales.",
+                'categorys' => "Statistiques descriptives",
+                'variables' => '',
+                'examples' => "Dans l'ensemble {1, 3, 3, 6, 7}, la médiane est 3.",
+                'references' => "Weiss, N. A. (2016). Introductory Statistics.",
+                // Termes associés
+                'termes_associes' => [],
+                // Sections supplémentaires
+                // Historique
+                'historique' => [
+                    "description" => "La médiane a été introduite comme mesure de tendance centrale au XIXe siècle."
+                ],
+            ]
+        ],
+    ];
+});
+
+
+Route::get('/mediane', function (Request $request) {
+    return [
+        'termes' => [
+            'values'=> [
+                'description' => [
+                    'synonyme' => 'valeur centrale',
+                    'contraire' => '',
+                ],
+                'definitions' => "La médiane est la valeur qui sépare un ensemble de données en deux parties égales.",
+                'categorys' => "Statistiques descriptives",
+                'variables' => '',
+                'examples' => "Dans l'ensemble {1, 3, 3, 6, 7}, la médiane est 3.",
+                'references' => "Weiss, N. A. (2016). Introductory Statistics.",
+                // Termes associés
+                'termes_associes' => [],
+                // Sections supplémentaires
+                // Historique
+                'historique' => [
+                    "description" => "La médiane a été introduite comme mesure de tendance centrale au XIXe siècle."
+                ],
+            ]
+        ],
+    ];
+});
+
+
+Route::get('/term2', function (Request $request) {
+    return [
+        'termes' => [
+            'values'=> [
+                'Loi' =>[
+                    'description' => [
+                        'synonyme' =>'distribution, modèle',
+                        'contraire' =>'anomalie, déviation',
+                    ],
+                    'definitions' =>'En statistique, une loi de probabilité décrit comment les valeurs d’une variable aléatoire sont distribuées dans un ensemble de données.',
+                    'categorys' => 'Probabilité, Modélisation',
+                    'variables' =>'Loi normale, loi binomiale, loi de Poisson',
+                    'examples' => 'La loi normale est utilisée pour modéliser de nombreuses distributions naturelles, comme la taille des êtres humains.',
+                    'references' =>'Académie des sciences, Publications scientifiques',
+                    'themes' => 'Statistique, Probabilité, Mathématiques',
+                    'termes_associes' => [
+                        ['terme' => 'Loi normale', 'definition' => 'Distribution en forme de cloche symétrique autour de la moyenne.'],
+                        ['terme' => 'Loi binomiale', 'definition' => 'Modélise le nombre de succès dans une série d’expériences de Bernoulli.'],
+                    ],
+                    'historique' => [
+                        "description" => "Les lois de probabilité ont été formalisées au XVIIIe siècle avec l'émergence de la théorie des probabilités."
+                    ],
+                    'importance_statistique' => "Elles permettent de modéliser et prévoir des phénomènes aléatoires dans divers domaines.",
+                    'applications_pratiques' => "Utilisées en assurance, économie, physique, et autres.",
+                    'outils_methods_statistiques' => "Utilisation d’outils comme les histogrammes et l’ajustement de courbes.",
+                    'glossaire' => [
+                        "Fonction de densité" => "Fonction qui donne la probabilité pour une variable aléatoire continue.",
+                        "Variance" => "Mesure de la dispersion des valeurs autour de la moyenne.",
+                    ],
+                ],
+                'Mode' =>[
+                    'description' => [
+                        'synonyme' =>'valeur fréquente',
+                        'contraire' =>'valeur rare',
+                    ],
+                    'definitions' =>'Le mode est la valeur la plus fréquente dans un ensemble de données.',
+                    'categorys' => 'Statistique descriptive',
+                    'variables' =>'Mode unique, mode multiple',
+                    'examples' => 'Dans un sondage sur la taille, le mode pourrait être 170 cm si c’est la taille la plus fréquente.',
+                    'references' =>'Académie des sciences, Publications scientifiques',
+                    'themes' => 'Statistique, Mathématiques',
+                    'termes_associes' => [
+                        ['terme' => 'Distribution bimodale', 'definition' => 'Distribution avec deux modes.'],
+                    ],
+                    'historique' => [
+                        "description" => "Le mode en tant que mesure statistique a été utilisé dès le XVIIIe siècle dans les premiers travaux en démographie."
+                    ],
+                    'importance_statistique' => "C'est un indicateur simple mais utile pour comprendre la répartition des données.",
+                    'applications_pratiques' => "Utilisé pour analyser les fréquences d'apparition dans des données.",
+                    'outils_methods_statistiques' => "On utilise des histogrammes ou des tableaux de fréquences pour identifier le mode.",
+                ],
+                'Médiane' =>[
+                    'description' => [
+                        'synonyme' =>'valeur centrale',
+                        'contraire' =>'extrême, outlier',
+                    ],
+                    'definitions' =>'La médiane est la valeur qui sépare un ensemble de données en deux parties égales.',
+                    'categorys' => 'Statistique descriptive',
+                    'variables' =>'Médiane d’échantillon, médiane de population',
+                    'examples' => 'Si les tailles sont 150 cm, 160 cm, 170 cm, 180 cm, et 190 cm, la médiane est 170 cm.',
+                    'references' =>'Académie des sciences, Publications scientifiques',
+                    'themes' => 'Statistique, Mathématiques',
+                    'termes_associes' => [
+                        ['terme' => 'Quartiles', 'definition' => 'Valeurs qui divisent les données en quatre parts égales.'],
+                    ],
+                    'historique' => [
+                        "description" => "La médiane a été popularisée au XIXe siècle comme une alternative à la moyenne dans les études sociales."
+                    ],
+                    'importance_statistique' => "La médiane est robuste face aux valeurs extrêmes, contrairement à la moyenne.",
+                    'applications_pratiques' => "Utilisée pour résumer des données asymétriques ou lorsque des outliers sont présents.",
+                    'outils_methods_statistiques' => "On utilise souvent des tableaux de fréquences cumulées pour calculer la médiane.",
+                ],
+                'Moyenne' =>[
+                    'description' => [
+                        'synonyme' =>'valeur moyenne, centre',
+                        'contraire' =>'extrême, valeur rare',
+                    ],
+                    'definitions' =>'La moyenne est la somme de toutes les valeurs divisée par le nombre de valeurs.',
+                    'categorys' => 'Statistique descriptive',
+                    'variables' =>'Moyenne arithmétique, moyenne géométrique',
+                    'examples' => 'La moyenne des nombres 3, 5, et 7 est 5.',
+                    'references' =>'Académie des sciences, Publications scientifiques',
+                    'themes' => 'Statistique, Mathématiques',
+                    'termes_associes' => [
+                        ['terme' => 'Moyenne pondérée',
+                            'definition' => 'Moyenne où certaines valeurs ont un poids plus élevé.'],
+                    ],
+                    'historique' => [
+                        "description" => "L'utilisation de la moyenne remonte aux premiers travaux de statistique en économie."
+                    ],
+                    'importance_statistique' => "C’est une mesure centrale couramment utilisée pour résumer un ensemble de données.",
+                    'applications_pratiques' => "La moyenne est utilisée pour analyser la performance financière, les résultats scolaires, et bien plus.",
+                    'outils_methods_statistiques' => "On utilise des formules mathématiques simples pour la calculer, ou des logiciels statistiques.",
+                ],
+                'Écart' =>[
+                    'description' => [
+                        'synonyme' =>'dispersion, écart-type',
+                        'contraire' =>'uniformité, constance',
+                    ],
+                    'definitions' =>'L’écart-type mesure la dispersion des valeurs autour de la moyenne.',
+                    'categorys' => 'Statistique descriptive',
+                    'variables' =>'Écart-type de population, écart-type d’échantillon',
+                    'examples' => 'Un écart-type faible signifie que les valeurs sont proches de la moyenne.',
+                    'references' =>'Académie des sciences, Publications scientifiques',
+                    'themes' => 'Statistique, Mathématiques',
+                    'termes_associes' => [
+                        ['terme' => 'Variance', 'definition' => 'Carré de l’écart-type, mesure de la dispersion totale.'],
+                    ],
+                    'historique' => [
+                        "description" => "L’écart-type a été introduit au XIXe siècle pour quantifier la variabilité des observations."
+                    ],
+                    'importance_statistique' => "L'écart-type est essentiel pour comprendre la variabilité d'un ensemble de données.",
+                    'applications_pratiques' => "Utilisé en finance pour évaluer les risques ou en qualité pour mesurer la conformité.",
+                    'outils_methods_statistiques' => "Les formules statistiques et outils logiciels permettent de le calculer facilement.",
+                ],
+                'Population'=> [
+                    'description' =>[
+                        'synonyme' =>'démographie, collectivité',
+                        'contraire' =>'dépopulation, émigration',
+                    ],
+                    'definitions' =>'La population désigne l’ensemble des individus d’une même espèce vivant dans une zone géographique donnée à un moment donné. En statistiques, elle fait référence au groupe de personnes sur lequel une étude est menée.',
+                    'categorys' => 'Statistiques démographiques',
+                    'variables' =>'Taille de la population, taux de natalité, taux de mortalité, migration nette',
+                    'examples' => 'La population de la France était estimée à environ 67 millions d’habitants en 2023.',
+                    'references' =>'Institut national de la statistique et des études économiques (INSEE), Organisation des Nations Unies (ONU)',
+                    'themes' => 'Démographie, Sociologie, Économie',
+                    'termes_associes' => [
+                        [
+                            'terme' => 'Accroissement naturel',
+                            'definition' => 'Différence entre le nombre de naissances et le nombre de décès sur une période donnée.',
+                        ],
+                        [
+                            'terme' => 'Densité de population',
+                            'definition' => 'Nombre d’habitants par unité de surface (habitants/km²).',
+                        ],
+                        [
+                            'terme' => 'Espérance de vie',
+                            'definition' => 'Durée moyenne de vie d’une population à un moment donné.',
+                        ],
+                        [
+                            'terme' => 'Recensement',
+                            'definition' => 'Dénombrement exhaustif des habitants d’un territoire à une date précise.',
+                        ],
+                        [
+                            'terme' => 'Taux de natalité',
+                            'definition' => 'Nombre de naissances vivantes pour 1 000 habitants sur une période donnée.',
+                        ],
+                        [
+                            'terme' => 'Taux de mortalité',
+                            'definition' => 'Nombre de décès pour 1 000 habitants sur une période donnée.',
+                        ],
+                        [
+                            'terme' => 'Solde migratoire',
+                            'definition' => 'Différence entre le nombre d’immigrants et d’émigrants sur une période donnée.',
+                        ],
+                        [
+                            'terme' => 'Pyramide des âges',
+                            'definition' => 'Graphique représentant la distribution par âge et sexe d’une population.',
+                        ],
+                        [
+                            'terme' => 'Transition démographique',
+                            'definition' => 'Processus par lequel une population passe d’un régime démographique traditionnel à un régime moderne.',
+                        ],
+                    ],
+                    // Sections supplémentaires ajoutées
+                    // 1. Historique
+                    'historique' => [
+                        "description" => "L'étude des populations remonte à l'antiquité, mais les méthodes statistiques modernes ont été développées au cours des derniers siècles. Les recensements réguliers sont devenus courants au XIXe siècle."
+                    ],
+                    // 2. Importance Statistique
+                    'importance_statistique' => "Comprendre la population est essentiel pour la planification économique, la santé publique et le développement social.",
+
+                    // 3. Applications Pratiques
+                    'applications_pratiques' => "Les données sur la population sont utilisées pour la planification urbaine, les politiques publiques, les études de marché et bien plus encore.",
+
+                    // 4. Outils et Méthodes Statistiques
+                    'outils_methods_statistiques' => "Les méthodes telles que l'analyse de régression, les enquêtes par échantillonnage et les modèles démographiques sont couramment utilisées pour analyser les données sur la population.",
+
+                    // 5. Glossaire
+                    // Liste des termes techniques spécifiques au domaine
+                    "glossaire" => [
+                        "Statistique descriptive" => "Méthodes utilisées pour résumer ou décrire les caractéristiques d'un ensemble de données.",
+                        "Inférence statistique" => "Processus permettant d'effectuer des généralisations ou des prédictions à partir d'un échantillon.",
+                        "Variance" => "Mesure de la dispersion des valeurs dans un ensemble de données.",
+                        "Écart_type" => "Mesure qui quantifie la dispersion ou l'étalement des valeurs par rapport à leur moyenne.",
+                    ],
+
+                    // 6. Études de Cas
+                    // Exemples concrets où les concepts ont été appliqués
+                    "etudes_de_cas" => [
+                        "Étude sur l'évolution démographique en France" => "Analyse des tendances démographiques depuis 1950, mettant en lumière l'accroissement naturel et l'évolution des taux de natalité.",
+                        "Impact des migrations sur les villes" => "Étude sur comment l'immigration a transformé certaines métropoles européennes au cours du XXIe siècle."
+                    ],
+                    // 7. Ressources Complémentaires
+                    // Liens vers des livres, articles ou sites web utiles
+                    "ressources_complementaires" => [
+                        "Livre : Démographie: Analyse et Perspectives" => "Un ouvrage complet qui traite des enjeux démographiques contemporains.",
+                        "Site : INSEE" => "Site officiel fournissant des statistiques détaillées sur la population française.",
+                        "Article : La transition démographique en Europe" => "Une analyse approfondie des changements démographiques en Europe au cours du dernier siècle."
+                    ],
+                ]
+            ]
+        ],
+    ];
+});
+
+
+use App\Http\Controllers\WikipediaController;
+
+Route::get('/search/{term}', [WikipediaController::class, 'search']);
+
