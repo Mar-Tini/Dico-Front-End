@@ -69,3 +69,5 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
 # Dico-Front-End
+
+Dictionnaire statistique Front-End est l'interface utilisateur de l'application de dictionnaire statistique, conçue pour fournir un accès rapide et intuitif à une vaste base de données de termes statistiques. L'objectif principal de ce projet est de permettre aux utilisateurs de rechercher, explorer et comprendre des concepts statistiques de manière interactive.
